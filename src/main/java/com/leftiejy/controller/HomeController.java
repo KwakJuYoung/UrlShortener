@@ -1,6 +1,5 @@
 package com.leftiejy.controller;
 
-import com.leftiejy.model.TestModel;
 import com.leftiejy.service.UrlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,11 +19,7 @@ public class HomeController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView home() {
-        TestModel testModel = new TestModel();
-        testModel.setId(1);
-        testModel.setName("hello");
         ModelAndView modelAndView = new ModelAndView("home");
-        modelAndView.addObject("test", testModel);
         return modelAndView;
     }
 
