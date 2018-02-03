@@ -44,7 +44,7 @@ public class UrlController {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> removeUrl(@PathVariable long id) {
+    public ResponseEntity<?> removeUrl(@PathVariable Long id) {
         if (!urlService.removeUrl(id)) {
             return ResponseEntity.notFound().build();
         }

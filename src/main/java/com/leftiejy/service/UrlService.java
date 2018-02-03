@@ -1,11 +1,12 @@
 package com.leftiejy.service;
 
 import com.leftiejy.model.Url;
+import com.leftiejy.repository.UrlRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,32 +16,42 @@ import java.util.List;
 public class UrlService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UrlService.class);
 
+    @Autowired
+    private UrlRepository urlRepository;
+
     public List<Url> getUrlList() {
         LOGGER.debug("getUrlList");
-        List<Url> urlList = new ArrayList<>();
-        urlList.add(new Url(1, "key1", "originUrl1"));
-        urlList.add(new Url(2, "key2", "originUrl2"));
-        urlList.add(new Url(3, "key3", "originUrl3"));
-        return urlList;
+        return urlRepository.list();
     }
 
-    public Url getUrl(long id) {
-        Url url = new Url(id, "key1", "originUrl1");
-        LOGGER.debug("getUrl : " + url.toString());
-        return url;
+    public Url getUrl(Long id) {
+        LOGGER.debug("getUrl : " + id);
+        return urlRepository.findById(id);
     }
 
     public void addUrl(Url url) {
         LOGGER.debug("addUrl : " + url.toString());
+        urlRepository.save(url);
     }
 
-    public boolean removeUrl(long id) {
+    public boolean removeUrl(Long id) {
         LOGGER.debug("removeUrl : " + id);
-        return true;
+        try {
+            return urlRepository.deleteById(id);
+        } catch (Exception e) {
+            LOGGER.error(this.getClass().toString(), e);
+            return false;
+        }
     }
 
     public boolean updateUrl(Url url) {
         LOGGER.debug("updateUrl : " + url.toString());
+        try {
+            urlRepository.update(url);
+        } catch (Exception e) {
+            LOGGER.error(this.getClass().toString(), e);
+            return false;
+        }
         return true;
     }
 }

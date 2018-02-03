@@ -1,20 +1,40 @@
 package com.leftiejy.model;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+
 /**
  * Created by leftiejy on 2018. 2. 3..
  */
-public class Url {
+@Entity
+@Table(name = "SHORTEN_URL",
+    indexes = @Index(name = "SHORTEN_PATH", columnList = "SHORTEN_PATH")
+)
+public class Url implements Serializable{
+    @Id
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String key;
+
+    @Column(name = "SHORTEN_PATH", nullable = false)
+    private String shortenPath;
+
+    @Column(name = "ORIGIN_URL", nullable = false)
     private String originUrl;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date registeredDate = new Date(System.currentTimeMillis());
 
     public Url() {
     }
 
     public Url(long id, String key, String originUrl) {
         this.id = id;
-        this.key = key;
+        this.shortenPath = key;
         this.originUrl = originUrl;
+        this.registeredDate = new Date(System.currentTimeMillis());
     }
 
     public long getId() {
@@ -25,12 +45,12 @@ public class Url {
         this.id = id;
     }
 
-    public String getKey() {
-        return key;
+    public String getShortenPath() {
+        return shortenPath;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setShortenPath(String shortenPath) {
+        this.shortenPath = shortenPath;
     }
 
     public String getOriginUrl() {
@@ -41,6 +61,14 @@ public class Url {
         this.originUrl = originUrl;
     }
 
+    public Date getRegisteredDate() {
+        return registeredDate;
+    }
+
+    public void setRegisteredDate(Date registeredDate) {
+        this.registeredDate = registeredDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,7 +77,7 @@ public class Url {
         Url url = (Url) o;
 
         if (id != url.id) return false;
-        if (key != null ? !key.equals(url.key) : url.key != null) return false;
+        if (shortenPath != null ? !shortenPath.equals(url.shortenPath) : url.shortenPath != null) return false;
         return !(originUrl != null ? !originUrl.equals(url.originUrl) : url.originUrl != null);
 
     }
@@ -57,7 +85,7 @@ public class Url {
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (key != null ? key.hashCode() : 0);
+        result = 31 * result + (shortenPath != null ? shortenPath.hashCode() : 0);
         result = 31 * result + (originUrl != null ? originUrl.hashCode() : 0);
         return result;
     }
@@ -66,7 +94,7 @@ public class Url {
     public String toString() {
         return "Url{" +
             "id=" + id +
-            ", key='" + key + '\'' +
+            ", shortenPath='" + shortenPath + '\'' +
             ", originUrl='" + originUrl + '\'' +
             '}';
     }

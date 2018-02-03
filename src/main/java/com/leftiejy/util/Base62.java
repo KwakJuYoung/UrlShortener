@@ -4,6 +4,7 @@ package com.leftiejy.util;
  * Created by leftiejy on 2018. 2. 3..
  */
 public class Base62 {
+
     public static final String BASE_CHARSET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     public static final int BASE = BASE_CHARSET.length();
     public static final int MAX_KEY_SIZE = 8;
