@@ -1,12 +1,12 @@
 package com.leftiejy.controller;
 
 import com.leftiejy.model.TestModel;
-import org.springframework.http.ResponseEntity;
+import com.leftiejy.service.UrlService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -14,6 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class HomeController {
+
+    @Autowired
+    private UrlService urlService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView home() {
@@ -25,12 +28,8 @@ public class HomeController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/{key}", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<?> test(@PathVariable("key") String key) {
-        TestModel testModel = new TestModel();
-        testModel.setId(1);
-        testModel.setName(key);
-        return ResponseEntity.ok(testModel);
+    @RequestMapping(value = "/{shortenPath}", method = RequestMethod.GET)
+        public String redirect(@PathVariable("shortenPath") String shortenPath) {
+        return "redirect:" + urlService.getUrl(shortenPath);
     }
 }

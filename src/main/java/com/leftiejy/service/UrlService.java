@@ -2,6 +2,7 @@ package com.leftiejy.service;
 
 import com.leftiejy.model.Url;
 import com.leftiejy.repository.UrlRepository;
+import com.leftiejy.util.Base62;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ public class UrlService {
     }
 
     public void addUrl(Url url) {
+        String shortenPath = Base62.encode(urlRepository.getNextId());
+        url.setShortenPath(shortenPath);
         LOGGER.debug("addUrl : " + url.toString());
         urlRepository.save(url);
     }
@@ -44,14 +47,8 @@ public class UrlService {
         }
     }
 
-    public boolean updateUrl(Url url) {
-        LOGGER.debug("updateUrl : " + url.toString());
-        try {
-            urlRepository.update(url);
-        } catch (Exception e) {
-            LOGGER.error(this.getClass().toString(), e);
-            return false;
-        }
-        return true;
+    public String getUrl(String shortenPath) {
+        Url url = urlRepository.findByShortenPath(shortenPath);
+        return url.getOriginUrl();
     }
 }

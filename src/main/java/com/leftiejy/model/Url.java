@@ -17,10 +17,10 @@ public class Url implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "SHORTEN_PATH", nullable = false)
+    @Column(name = "SHORTEN_PATH", nullable = false, length=8)
     private String shortenPath;
 
-    @Column(name = "ORIGIN_URL", nullable = false)
+    @Column(name = "ORIGIN_URL", nullable = false, columnDefinition = "text")
     private String originUrl;
 
     @Temporal(TemporalType.TIMESTAMP)

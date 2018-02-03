@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/urls")
 public class UrlController {
+
     @Autowired
     private UrlService urlService;
 
@@ -35,13 +36,13 @@ public class UrlController {
         return ResponseEntity.ok(url);
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<?> updateUrl(@RequestBody Url url) {
-        if (!urlService.updateUrl(url)) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(url);
-    }
+//    @RequestMapping(method = RequestMethod.PUT)
+//    public ResponseEntity<?> updateUrl(@RequestBody Url url) {
+//        if (!urlService.updateUrl(url)) {
+//            return ResponseEntity.notFound().build();
+//        }
+//        return ResponseEntity.ok(url);
+//    }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> removeUrl(@PathVariable Long id) {

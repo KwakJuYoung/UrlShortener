@@ -1,5 +1,7 @@
 package com.leftiejy.repository;
 
+import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.slf4j.Logger;
@@ -74,11 +76,17 @@ public class CommonRepository<T, ID extends Serializable> {
         return getSession().get(persistentClass, id);
     }
 
+    public Query createQuery(String sqlQuery) {
+        return this.getSession().createQuery(sqlQuery);
+    }
+
     public SQLQuery createSQLQuery(String sqlQuery) {
         return this.getSession().createSQLQuery(sqlQuery);
     }
 
-
+    public Criteria createCriteria() {
+        return this.getSession().createCriteria(persistentClass);
+    }
     public List<T> list() {
         return this.getSession().createCriteria(persistentClass).list();
     }
