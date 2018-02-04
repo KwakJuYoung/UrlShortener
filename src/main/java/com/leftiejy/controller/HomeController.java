@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-/**
- * Created by leftiejy on 2018. 2. 2..
- */
 @Controller
 public class HomeController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UrlService.class);
@@ -24,7 +21,9 @@ public class HomeController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView home() {
-        return new ModelAndView("home");
+        ModelAndView modelAndView = new ModelAndView("home");
+        modelAndView.addObject("urlList", urlService.getUrlList());
+        return modelAndView;
     }
 
     @RequestMapping(value = "/{shortenUrl}", method = RequestMethod.GET)

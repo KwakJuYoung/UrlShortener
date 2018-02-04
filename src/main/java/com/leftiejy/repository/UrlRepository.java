@@ -6,9 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
 
-/**
- * Created by leftiejy on 2018. 2. 3..
- */
 @Repository
 public class UrlRepository extends CommonRepository<Url, Long>{
     public long getNextId() {

@@ -14,9 +14,6 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-/**
- * Created by leftiejy on 2018. 2. 3..
- */
 @Transactional
 public class CommonRepository<T, ID extends Serializable> {
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonRepository.class);

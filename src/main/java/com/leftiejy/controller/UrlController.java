@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Created by leftiejy on 2018. 2. 3..
- */
 @RestController
 @RequestMapping("/urls")
 public class UrlController {

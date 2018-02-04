@@ -4,9 +4,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by leftiejy on 2018. 2. 3..
- */
 @Entity
 @Table(name = "SHORTEN_URL",
     indexes = @Index(name = "HASH_KEY", columnList = "HASH_KEY")

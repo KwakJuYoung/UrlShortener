@@ -1,8 +1,5 @@
 package com.leftiejy.util;
 
-/**
- * Created by leftiejy on 2018. 2. 4..
- */
 public class UrlHash {
     public static final String BASE_CHARSET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     public static final int MAX_HASH_LENGTH = 3;

@@ -13,9 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by leftiejy on 2018. 2. 3..
- */
 @Service
 public class UrlService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UrlService.class);

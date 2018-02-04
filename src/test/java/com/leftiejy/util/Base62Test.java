@@ -6,9 +6,6 @@ import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by leftiejy on 2018. 2. 3..
- */
 public class Base62Test {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
