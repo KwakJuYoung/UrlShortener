@@ -19,10 +19,12 @@ public class HomeController {
     @Autowired
     private UrlService urlService;
 
+//    private Gson gson = new Gson();
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView("home");
-        modelAndView.addObject("urlList", urlService.getUrlList());
+//        modelAndView.addObject("urlList", gson.toJson(urlService.getUrlList()));
         return modelAndView;
     }
 

@@ -1,0 +1,69 @@
+#home_container {
+    min-height: 70%;
+}
+
+/*input area*/
+#url_register_container {
+    background-color: #1d1f20;
+    height : 100px;
+    text-align: center;
+}
+
+.input-wrapper {
+    margin: auto;
+    width: 100%;
+    display: inline-block;
+    padding: 35px;
+}
+
+#input_url {
+    width: 80%;
+    height: 35px;
+}
+
+/*list area*/
+#url_list {
+    width : 80%;
+    margin : 10px 10%;
+}
+
+#url_list th,
+#url_list td {
+    padding : 15px 10px;
+    margin : 5px;
+}
+
+#url_list td {
+    border-top : 1px solid #9EACAD;
+    border-bottom : 1px solid #9EACAD;
+    border-collapse: collapse;
+    height : auto;
+}
+
+.url-item .origin-url {
+    min-width : 60%;
+}
+
+.url-item .shorten-url {
+    min-width : 20%;
+}
+
+.url-item .call-count {
+    width : auto;
+}
+
+.url-item .delete-btn-area {
+    min-width : 10%;
+}
+
+.url-item td.origin-url {
+    white-space : nowrap;
+    word-wrap:normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 500px;
+}
+
+.url-item td.shorten-url {
+    font-weight: bold;
+}
