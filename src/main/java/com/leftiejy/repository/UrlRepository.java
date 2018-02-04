@@ -27,4 +27,11 @@ public class UrlRepository extends CommonRepository<Url, Long>{
             .add(Restrictions.eq("encodedIndex", encodedIndex))
             .uniqueResult();
     }
+
+    public Url findByOriginUrl(String hashKey, String originUrl) {
+        return (Url) this.createCriteria()
+            .add(Restrictions.eq("hashKey", hashKey))
+            .add(Restrictions.eq("originUrl", originUrl))
+            .uniqueResult();
+    }
 }

@@ -33,14 +33,18 @@ public class UrlService {
         return urlRepository.findById(id);
     }
 
-    public void addUrl(Url url) {
+    public Url addUrl(Url url) {
         String hashKey = UrlHash.encode(url.getOriginUrl());
         String encodedIndex = Base62.encode(urlRepository.getNextId());
-
+        Url savedUrl = urlRepository.findByOriginUrl(hashKey, url.getOriginUrl());
+        if (savedUrl != null) {
+            return savedUrl;
+        }
         url.setHashKey(hashKey);
         url.setEncodedIndex(encodedIndex);
         LOGGER.debug("addUrl : " + url.toString());
         urlRepository.save(url);
+        return url;
     }
 
     public boolean removeUrl(Long id) {
@@ -54,7 +58,7 @@ public class UrlService {
     }
 
     public String getUrl(String shortenUrl) throws UrlNotFoundException {
-        String hashKey = shortenUrl.substring(3);
+        String hashKey = shortenUrl.substring(0, 3);
         String encodedIndex = shortenUrl.substring(3, shortenUrl.length());
         Url url = urlRepository.findByKey(hashKey, encodedIndex);
         if (url == null) {

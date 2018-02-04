@@ -32,8 +32,8 @@ public class UrlController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> createUrl(@RequestBody Url url) {
-        urlService.addUrl(url);
-        return ResponseEntity.ok(url);
+        Url resultUrl = urlService.addUrl(url);
+        return ResponseEntity.ok(resultUrl);
     }
 
 //    @RequestMapping(method = RequestMethod.PUT)
