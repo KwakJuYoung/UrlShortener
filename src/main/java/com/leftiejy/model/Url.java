@@ -9,7 +9,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "SHORTEN_URL",
-    indexes = @Index(name = "SHORTEN_PATH", columnList = "SHORTEN_PATH")
+    indexes = @Index(name = "HASH_KEY", columnList = "HASH_KEY")
 )
 public class Url implements Serializable{
     @Id
@@ -17,25 +17,25 @@ public class Url implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "SHORTEN_PATH", nullable = false, length=8)
-    private String shortenPath;
+    @Column(name = "HASH_KEY", nullable = false, length = 3)
+    private String hashKey;
+
+    @Column(name = "ENCODED_INDEX", nullable = false, length=8)
+    private String encodedIndex;
 
     @Column(name = "ORIGIN_URL", nullable = false, columnDefinition = "text")
     private String originUrl;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
+    @Column(updatable = false, nullable = false)
     private Date registeredDate = new Date(System.currentTimeMillis());
 
-    public Url() {
-    }
+    @Column(name = "CALL_COUNT")
+    private Integer callCount = 0;
 
-    public Url(long id, String key, String originUrl) {
-        this.id = id;
-        this.shortenPath = key;
-        this.originUrl = originUrl;
-        this.registeredDate = new Date(System.currentTimeMillis());
-    }
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column
+    private Date lastUpdateDate = null;
 
     public long getId() {
         return id;
@@ -45,12 +45,12 @@ public class Url implements Serializable{
         this.id = id;
     }
 
-    public String getShortenPath() {
-        return shortenPath;
+    public String getEncodedIndex() {
+        return encodedIndex;
     }
 
-    public void setShortenPath(String shortenPath) {
-        this.shortenPath = shortenPath;
+    public void setEncodedIndex(String encodedIndex) {
+        this.encodedIndex = encodedIndex;
     }
 
     public String getOriginUrl() {
@@ -69,33 +69,33 @@ public class Url implements Serializable{
         this.registeredDate = registeredDate;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Url url = (Url) o;
-
-        if (id != url.id) return false;
-        if (shortenPath != null ? !shortenPath.equals(url.shortenPath) : url.shortenPath != null) return false;
-        return !(originUrl != null ? !originUrl.equals(url.originUrl) : url.originUrl != null);
-
+    public Integer getCallCount() {
+        return callCount;
     }
 
-    @Override
-    public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (shortenPath != null ? shortenPath.hashCode() : 0);
-        result = 31 * result + (originUrl != null ? originUrl.hashCode() : 0);
-        return result;
+    public void setCallCount(Integer callCount) {
+        this.callCount = callCount;
     }
 
-    @Override
-    public String toString() {
-        return "Url{" +
-            "id=" + id +
-            ", shortenPath='" + shortenPath + '\'' +
-            ", originUrl='" + originUrl + '\'' +
-            '}';
+    public Date getLastUpdateDate() {
+        return lastUpdateDate;
     }
+
+    public void setLastUpdateDate(Date lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
+    }
+
+    public void increaseCallCount() {
+        this.callCount++;
+    }
+
+    public String getHashKey() {
+        return hashKey;
+    }
+
+    public void setHashKey(String hashKey) {
+        this.hashKey = hashKey;
+    }
+
+
 }

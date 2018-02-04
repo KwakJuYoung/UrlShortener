@@ -1,13 +1,16 @@
 package com.leftiejy.service;
 
+import com.leftiejy.exception.UrlNotFoundException;
 import com.leftiejy.model.Url;
 import com.leftiejy.repository.UrlRepository;
 import com.leftiejy.util.Base62;
+import com.leftiejy.util.UrlHash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,8 +34,11 @@ public class UrlService {
     }
 
     public void addUrl(Url url) {
-        String shortenPath = Base62.encode(urlRepository.getNextId());
-        url.setShortenPath(shortenPath);
+        String hashKey = UrlHash.encode(url.getOriginUrl());
+        String encodedIndex = Base62.encode(urlRepository.getNextId());
+
+        url.setHashKey(hashKey);
+        url.setEncodedIndex(encodedIndex);
         LOGGER.debug("addUrl : " + url.toString());
         urlRepository.save(url);
     }
@@ -47,8 +53,17 @@ public class UrlService {
         }
     }
 
-    public String getUrl(String shortenPath) {
-        Url url = urlRepository.findByShortenPath(shortenPath);
+    public String getUrl(String shortenUrl) throws UrlNotFoundException {
+        String hashKey = shortenUrl.substring(3);
+        String encodedIndex = shortenUrl.substring(3, shortenUrl.length());
+        Url url = urlRepository.findByKey(hashKey, encodedIndex);
+        if (url == null) {
+            throw new UrlNotFoundException(shortenUrl);
+        }
+        url.increaseCallCount();
+        url.setLastUpdateDate(new Date(System.currentTimeMillis()));
+        urlRepository.update(url);
+
         return url.getOriginUrl();
     }
 }

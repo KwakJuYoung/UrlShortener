@@ -1,13 +1,18 @@
 package com.leftiejy.util;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by leftiejy on 2018. 2. 3..
  */
 public class Base62Test {
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
     //encode
     @Test
     public void encoding_0_return_a_and_decoding() {
@@ -43,17 +48,23 @@ public class Base62Test {
 
     @Test
     public void encoding_Long_MAX() {
+        expectedException.expect(ArrayIndexOutOfBoundsException.class);
         long id = Long.MAX_VALUE;
-        String encodedValue = Base62.encode(id);
-        assertEquals("aZl8N0y58M7", encodedValue);
-        assertEquals(id, Base62.decode(encodedValue));
+        Base62.encode(id);
     }
 
     @Test
     public void encoding_int_MAX() {
+        expectedException.expect(ArrayIndexOutOfBoundsException.class);
         long id = Integer.MAX_VALUE;
+        Base62.encode(id);
+    }
+
+    @Test
+    public void encoding_12345_return_ZZZZZZZZ_and_decoding() {
+        long id = 12345;
         String encodedValue = Base62.encode(id);
-        assertEquals("2lkCB1", encodedValue);
+        assertEquals("3d7", encodedValue);
         assertEquals(id, Base62.decode(encodedValue));
     }
 
@@ -61,7 +72,7 @@ public class Base62Test {
     public void encoding_MAX_ID_SIZE_return_ZZZZZZZZ_and_decoding() {
         long id = Base62.MAX_ID_SIZE;
         String encodedValue = Base62.encode(id);
-        assertEquals("ZZZZZZZZ", encodedValue);
+        assertEquals("ZZZZZ", encodedValue);
         assertEquals(id, Base62.decode(encodedValue));
     }
 }

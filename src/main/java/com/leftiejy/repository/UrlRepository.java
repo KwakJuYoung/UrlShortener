@@ -21,9 +21,10 @@ public class UrlRepository extends CommonRepository<Url, Long>{
         return nextId.longValue();
     }
 
-    public Url findByShortenPath(String shortenPath) {
+    public Url findByKey(String hashKey, String encodedIndex) {
         return (Url) this.createCriteria()
-            .add(Restrictions.eq("shortenPath", shortenPath))
+            .add(Restrictions.eq("hashKey", hashKey))
+            .add(Restrictions.eq("encodedIndex", encodedIndex))
             .uniqueResult();
     }
 }
