@@ -6,7 +6,7 @@
     <script type="text/javascript" src="${contextPath}/script/url.js"></script>
     <link href="${contextPath}/css/url.css" rel="stylesheet" type="text/css">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Url Shortening</title>
+    <title>URL Shortening</title>
 </head>
 <body>
 <div id="home_container">

@@ -22,9 +22,20 @@
 }
 
 /*list area*/
+#url_list_container {
+    max-height: 76%;
+    overflow-y: auto;
+}
+
 #url_list {
+    margin: 0 auto;
+}
+
+#url_list tbody{
     width : 80%;
     margin : 10px 10%;
+    max-height: 100px;
+    overflow-y: scroll;
 }
 
 #url_list th,

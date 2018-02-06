@@ -110,24 +110,23 @@ var UrlItem = function (urlObj, deleteCallback) {
 	};
 
 	var drawCallCount = function (callCount) {
-		var $count = $("<td>")
+		return $("<td>")
 			.addClass("call-count")
 			.text(callCount);
-		return $count;
 	};
 
 	var drawShortenUrl = function (shortenUrl) {
-		var $shortenUrl = $("<td>")
+		return $("<td>")
 			.addClass("shorten-url")
 			.text(shortenUrl);
-		return $shortenUrl;
 	};
 
 	var drawOriginUrl = function (originUrl) {
-		var $originUrl = $("<td>")
+		$originUrl = $("<td>")
 			.addClass("origin-url")
 			.text(originUrl);
-		return $originUrl;
+		//TODO 툴팁
+		return $originUrl
 	};
 
 	var $item = $("<tr>").addClass("url-item");
