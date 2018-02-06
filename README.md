@@ -39,4 +39,13 @@ URL 압축
    * 62^5까지 표현가능 = 약 90억개까지 표현 가능
 
 실행 방법
+
 -------------
+ 1. DB연결
+   - appication.properties 에서
+     * spring.datasource.url
+     * spring.datasource.username
+     * spring.datasource.password
+   각각 수정
+ 2. 구동
+   - mvn spring-boot:run
