@@ -40,11 +40,3 @@ URL 압축
 
 실행 방법
 -------------
- ##DB연결
-   - appication.properties 에서
-     * spring.datasource.url
-     * spring.datasource.username
-     * spring.datasource.password
-   각각 수정
- ##구동
-   - mvn spring-boot:run
