@@ -1,5 +1,6 @@
 package com.leftiejy.controller;
 
+import com.leftiejy.exception.InvalidShortenUrException;
 import com.leftiejy.exception.UrlNotFoundException;
 import com.leftiejy.service.UrlService;
 import org.slf4j.Logger;
@@ -29,7 +30,7 @@ public class HomeController {
         try {
             RedirectView rv = new RedirectView(urlService.getUrl(shortenUrl));
             return new ModelAndView(rv);
-        } catch (UrlNotFoundException e) {
+        } catch (InvalidShortenUrException | UrlNotFoundException e) {
             LOGGER.error(this.getClass().toString(), e.getMessage());
             ModelAndView mv = new ModelAndView("errorPage");
             mv.addObject("shortenUrl", shortenUrl);

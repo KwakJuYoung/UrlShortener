@@ -1,5 +1,6 @@
 package com.leftiejy.service;
 
+import com.leftiejy.exception.InvalidShortenUrException;
 import com.leftiejy.exception.UrlNotFoundException;
 import com.leftiejy.model.Url;
 import com.leftiejy.repository.UrlRepository;
@@ -17,8 +18,13 @@ import java.util.List;
 public class UrlService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UrlService.class);
 
-    @Autowired
+
     private UrlRepository urlRepository;
+
+    @Autowired
+    public void setUrlRepository(UrlRepository urlRepository) {
+        this.urlRepository = urlRepository;
+    }
 
     public List<Url> getUrlList() {
         LOGGER.debug("getUrlList");
@@ -61,9 +67,15 @@ public class UrlService {
         }
     }
 
-    public String getUrl(String shortenUrl) throws UrlNotFoundException {
-        String hashKey = shortenUrl.substring(0, 3);
-        String encodedIndex = shortenUrl.substring(3, shortenUrl.length());
+    public String getUrl(String shortenUrl) throws InvalidShortenUrException, UrlNotFoundException {
+        String hashKey;
+        String encodedIndex;
+        try {
+            hashKey = shortenUrl.substring(0, 3);
+            encodedIndex = shortenUrl.substring(3, shortenUrl.length());
+        } catch (Exception e) {
+            throw new InvalidShortenUrException(shortenUrl);
+        }
         Url url = urlRepository.findByKey(hashKey, encodedIndex);
         if (url == null) {
             throw new UrlNotFoundException(shortenUrl);

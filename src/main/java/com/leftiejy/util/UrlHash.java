@@ -4,12 +4,7 @@ public class UrlHash {
     public static final String BASE_CHARSET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     public static final int MAX_HASH_LENGTH = 3;
     public static String encode(String url) {
-        if (url == null || url.length() == 0) {
-            return url;
-        }
-
         byte[] bytes = url.getBytes();
-
         byte[] result = getString(bytes);
 
         StringBuffer sb = new StringBuffer();
@@ -26,9 +21,10 @@ public class UrlHash {
         byte[] result = new byte[MAX_HASH_LENGTH];
         while(true) {
             for(int j=0; j < MAX_HASH_LENGTH; j++) {
-                result[j] = (byte) ((result[j] ^ bytes[i++]) % 62);
                 if (i >= bytes.length) {
                     return result;
+                } else {
+                    result[j] = (byte) ((result[j] ^ bytes[i++]) % 62);
                 }
             }
         }
