@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "SHORTEN_URL",
-    indexes = @Index(name = "HASH_KEY", columnList = "HASH_KEY")
+    indexes = @Index(name = "URL_INDEX", columnList = "HASH_KEY, ENCODED_INDEX")
 )
 public class Url implements Serializable{
     @Id
